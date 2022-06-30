@@ -1,3 +1,12 @@
+# linux
+```
+sudo apt-get install zlib1g-dev
+
+sudo apt install nasm
+
+automake-1.16
+```
+
 # ffmpeg的编译
 ```
 git clone https://github.com/nldzsz/ffmpeg-build-scripts.git
@@ -23,8 +32,4 @@ cd ffmpeg-build-scripts
 ```
 ./compile-pc.sh windows
 ```
-# 参考使用文章
-[MAC编译IOS/android的ffmpeg库(x264/fdk_aac/lamemp3)(一)](https://www.jianshu.com/p/16b14e8bb273)
 
-# 如有问题，请联系微信加入音视频技术交流群
-微信：nldzsz
