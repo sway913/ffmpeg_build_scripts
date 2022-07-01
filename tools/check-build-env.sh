@@ -124,8 +124,24 @@ fi
 # 解决方案：安装automake
 if [[ "$uname" = CYGWIN_NT-* ]]  && [[ ! `which automake` ]]; then
     echo "check automake env......"
-    echo "automake not found begin install....."
-    apt-cyg install automake || exit 1
+	echo "automake not found begin install....."
+	if [[ "$(uname)" == "Darwin" ]];then
+        # Mac平台
+        brew install automake || exit 1
+    elif [[ "$(uname)" == "Linux" ]];then
+        # Linux平台和windows平台
+        wget https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz || exit 1
+        tar zxvf automake-1.16.5.tar.gz || exit 1
+        rm automake-1.16.5.tar.gz
+        cd automake-1.16.5
+        ./configure || exit 1
+		make && make install || exit 1
+        cd -
+        rm -rf automake-1.16.5
+    else
+        # windows平台
+        apt-cyg install automake || exit 1
+    fi
     echo -e "check automake ok......"
 fi
 
