@@ -52,6 +52,30 @@ if [[ ! `which yasm` ]] && [[ $FF_PLATFORM_TARGET != "ios" && $FF_PLATFORM_TARGE
     echo -e "check yasm ok......"
 fi
 
+
+if [[ ! `which nasm` ]] && [[ $FF_PLATFORM_TARGET != "ios" && $FF_PLATFORM_TARGET != "android" ]]; then
+    echo "check nasm env......"
+	echo "nasm not found begin install....."
+	if [[ "$(uname)" == "Darwin" ]];then
+        # Mac平台
+        brew install yasm || exit 1
+    elif [[ "$(uname)" == "Linux" ]];then
+        # Linux平台和windows平台
+        wget https://www.nasm.us/pub/nasm/releasebuilds/2.15/nasm-2.15.tar.gz || exit 1
+        tar zxvf nasm-2.15.tar.gz || exit 1
+        rm nasm-2.15.tar.gz
+        cd nasm-2.15
+        ./configure || exit 1
+		make && make install || exit 1
+        cd -
+        rm -rf nasm-2.15
+    else
+        # windows平台
+        apt-cyg install nasm || exit 1
+    fi
+    echo -e "check nasm ok......"
+fi
+
 if [[ ! `which autoconf` || ! `which gperf` ]]; then
     # autotools工具集，autoconf用于基于GNU的make生成工具，有些库不支持Libtool;
     # gperf 主要用于fontconfig库的编译
